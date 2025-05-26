@@ -57,6 +57,27 @@
       text-align: center;
       color: #5d4037;
     }
+    h4 {
+      margin-top: 1.5rem;
+      color: #5d4037;
+      border-bottom: 1px solid #bcaaa4;
+      padding-bottom: 0.3rem;
+    }
+    .menu-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem 0;
+    }
+    .menu-list li {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed #bcaaa4;
+      padding: 0.5rem 0;
+      font-weight: 500;
+    }
+    .menu-list li:last-child {
+      border-bottom: none;
+    }
     .submit-btn, .btn-small {
       background: #a1887f;
       color: white;
@@ -144,8 +165,17 @@
     </div>
 
     <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ccc;">
+
     <h3 style="text-align:center;">📋 Daftar Menu</h3>
-    <ul id="daftarMenuUtama" style="padding: 0; list-style: none;"></ul>
+
+    <h4>☕ Menu Kopi</h4>
+    <ul class="menu-list" id="menuKopi"></ul>
+
+    <h4>🍞 Menu Snack</h4>
+    <ul class="menu-list" id="menuSnack"></ul>
+
+    <h4>🍜 Menu Mie</h4>
+    <ul class="menu-list" id="menuMie"></ul>
   </section>
 
   <section id="kasir">
@@ -181,21 +211,26 @@
 </main>
 
 <script>
+  // Data menu lengkap dengan id, nama, harga, dan kategori
   const daftarMenu = [
-    { id: 1, nama: 'Kopi Tubruk', harga: 7000 },
-    { id: 2, nama: 'Kopi Susu', harga: 12000 },
-    { id: 3, nama: 'Kopi Hitam', harga: 8000 },
-    { id: 4, nama: 'Espresso', harga: 15000 },
-    { id: 5, nama: 'Cappuccino', harga: 18000 },
-    { id: 6, nama: 'Latte', harga: 18000 },
-    { id: 7, nama: 'Mie Goreng Spesial', harga: 17000 },
-    { id: 8, nama: 'Mie Ayam Bakso', harga: 20000 },
-    { id: 9, nama: 'Indomie Telur Keju', harga: 14000 },
-    { id: 10, nama: 'Roti Bakar Cokelat', harga: 10000 },
-    { id: 11, nama: 'Pisang Goreng', harga: 8000 },
-    { id: 12, nama: 'Kopi Aren', harga: 14000 },
-    { id: 13, nama: 'Vietnam Drip', harga: 16000 },
-    { id: 14, nama: 'Es Kopi Susu', harga: 15000 },
+    // Menu Kopi
+    { id: 1, nama: "Kopi Tubruk", harga: 7000, kategori: "kopi" },
+    { id: 2, nama: "Kopi Susu", harga: 12000, kategori: "kopi" },
+    { id: 3, nama: "Kopi Hitam", harga: 8000, kategori: "kopi" },
+    { id: 4, nama: "Espresso", harga: 15000, kategori: "kopi" },
+    { id: 5, nama: "Cappuccino", harga: 18000, kategori: "kopi" },
+    { id: 6, nama: "Latte", harga: 18000, kategori: "kopi" },
+
+    // Menu Snack
+    { id: 7, nama: "Roti Bakar Coklat", harga: 10000, kategori: "snack" },
+    { id: 8, nama: "Kentang Goreng", harga: 12000, kategori: "snack" },
+    { id: 9, nama: "Pisang Goreng", harga: 8000, kategori: "snack" },
+    { id: 10, nama: "Tahu Crispy", harga: 10000, kategori: "snack" },
+
+    // Menu Mie (ganti dari Nasi)
+    { id: 11, nama: "Mie Goreng Spesial", harga: 20000, kategori: "mie" },
+    { id: 12, nama: "Mie Ayam", harga: 22000, kategori: "mie" },
+    { id: 13, nama: "Mie Kuah Telur", harga: 15000, kategori: "mie" }
   ];
 
   let pesanan = [];
@@ -207,7 +242,9 @@
   const struk = document.getElementById('struk');
   const totalBayar = document.getElementById('totalBayar');
   const riwayatDiv = document.getElementById('riwayat');
-  const daftarMenuUtama = document.getElementById('daftarMenuUtama');
+  const menuKopi = document.getElementById('menuKopi');
+  const menuSnack = document.getElementById('menuSnack');
+  const menuMie = document.getElementById('menuMie');
 
   function show(id) {
     document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
@@ -216,6 +253,7 @@
   }
 
   function loadMenu() {
+    // Isi dropdown pilihan menu kasir
     menuSelect.innerHTML = '';
     daftarMenu.forEach(item => {
       const opt = document.createElement('option');
@@ -223,14 +261,22 @@
       opt.textContent = `${item.nama} - Rp${item.harga.toLocaleString()}`;
       menuSelect.appendChild(opt);
     });
-  }
 
-  function tampilkanDaftarMenu() {
-    daftarMenuUtama.innerHTML = '';
+    // Tampilkan daftar menu per kategori di halaman home
+    menuKopi.innerHTML = '';
+    menuSnack.innerHTML = '';
+    menuMie.innerHTML = '';
+
     daftarMenu.forEach(item => {
       const li = document.createElement('li');
-      li.innerHTML = `<span>${item.nama}</span> <span>Rp${item.harga.toLocaleString()}</span>`;
-      daftarMenuUtama.appendChild(li);
+      li.textContent = `${item.nama}`;
+      const spanHarga = document.createElement('span');
+      spanHarga.textContent = `Rp${item.harga.toLocaleString()}`;
+      li.appendChild(spanHarga);
+
+      if (item.kategori === "kopi") menuKopi.appendChild(li);
+      else if (item.kategori === "snack") menuSnack.appendChild(li);
+      else if (item.kategori === "mie") menuMie.appendChild(li);
     });
   }
 
@@ -270,7 +316,7 @@
     if (!pesanan.length) return;
     const data = JSON.parse(localStorage.getItem('riwayat')) || [];
     const waktu = new Date().toLocaleString();
-    // Simpan salinan pesanan supaya tidak terpengaruh setelah reset
+    // Salin pesanan supaya tidak terpengaruh setelah reset
     const pesananCopy = pesanan.map(p => ({ id: p.id, qty: p.qty }));
     data.push({ waktu, pesanan: pesananCopy });
     localStorage.setItem('riwayat', JSON.stringify(data));
@@ -323,7 +369,7 @@
 
   // Init
   loadMenu();
-  tampilkanDaftarMenu();
+  tampilkanStruk();
 </script>
 
 </body>
