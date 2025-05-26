@@ -141,6 +141,19 @@
     </div><hr style="margin: 2rem 0; border: none; border-top: 1px solid #ccc;">
     <h3 style="text-align:center;">📋 Daftar Menu</h3>
 
+    <h4 style="margin-top: 1.5rem;">🌟 Menu Spesial</h4>
+    <ul style="padding: 0; list-style: none;">
+      <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
+        <span>Baso Crot</span> <span>Rp25.000</span>
+      </li>
+      <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
+        <span>Mi Muani</span> <span>Rp22.000</span>
+      </li>
+      <li style="display:flex; justify-content:space-between; padding:0.5rem 0;">
+        <span>Nasi Amba</span> <span>Rp25.000</span>
+      </li>
+    </ul>
+
     <h4 style="margin-top: 1.5rem;">☕ Menu Kopi</h4>
     <ul style="padding: 0; list-style: none;">
       <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
@@ -155,11 +168,37 @@
       <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
         <span>Espresso</span> <span>Rp15.000</span>
       </li>
-      <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
+      <li style="display:flex; justify-content:space-between; padding:0.5rem 0;">
         <span>Cappuccino</span> <span>Rp18.000</span>
       </li>
       <li style="display:flex; justify-content:space-between; padding:0.5rem 0;">
         <span>Latte</span> <span>Rp18.000</span>
+      </li>
+    </ul>
+
+    <h4 style="margin-top: 1.5rem;">🍹 Non Kopi</h4>
+    <ul style="padding: 0; list-style: none;">
+      <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
+        <span>Teh Manis</span> <span>Rp5.000</span>
+      </li>
+      <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
+        <span>Teh Tawar</span> <span>Rp3.000</span>
+      </li>
+      <li style="display:flex; justify-content:space-between; padding:0.5rem 0;">
+        <span>Jus Jeruk</span> <span>Rp12.000</span>
+      </li>
+    </ul>
+
+    <h4 style="margin-top: 1.5rem;">🍧 Minuman Dingin</h4>
+    <ul style="padding: 0; list-style: none;">
+      <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
+        <span>Es Teh Manis</span> <span>Rp7.000</span>
+      </li>
+      <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
+        <span>Es Kopi Susu</span> <span>Rp15.000</span>
+      </li>
+      <li style="display:flex; justify-content:space-between; padding:0.5rem 0;">
+        <span>Es Jeruk</span> <span>Rp10.000</span>
       </li>
     </ul>
 
@@ -177,6 +216,12 @@
       <li style="display:flex; justify-content:space-between; padding:0.5rem 0;">
         <span>Tahu Crispy</span> <span>Rp10.000</span>
       </li>
+      <li style="display:flex; justify-content:space-between; padding:0.5rem 0;">
+        <span>Cireng</span> <span>Rp9.000</span>
+      </li>
+      <li style="display:flex; justify-content:space-between; padding:0.5rem 0;">
+        <span>Bakwan</span> <span>Rp8.000</span>
+      </li>
     </ul>
 
     <h4 style="margin-top: 1.5rem;">🍛 Menu Nasi</h4>
@@ -191,137 +236,164 @@
         <span>Nasi Telur Kecap</span> <span>Rp15.000</span>
       </li>
     </ul>
-    
+
+    <h4 style="margin-top: 1.5rem;">🍜 Menu Mie</h4>
+    <ul style="padding: 0; list-style: none;">
+      <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
+        <span>Mie Goreng</span> <span>Rp15.000</span>
+      </li>
+      <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
+        <span>Mie Rebus</span> <span>Rp15.000</span>
+      </li>
+    </ul>
   </section>
 
   <!-- KASIR -->
   <section id="kasir">
-    <h2>Kasir - Pesanan</h2>
-    <form id="formPesan">
-      <label for="menu">Pilih Menu:</label>
-      <select id="menu" required></select>
+    <h2>Kasir</h2>
+    <form id="formPesan" onsubmit="return tambahPesanan()">
+      <label for="menuSelect">Pilih Menu:</label>
+      <select id="menuSelect" required></select>
 
-      <label for="jumlah">Jumlah:</label>
-      <input type="number" id="jumlah" min="1" value="1" required />
+      <label for="qtyInput">Jumlah:</label>
+      <input type="number" id="qtyInput" min="1" value="1" required />
 
       <button type="submit" class="submit-btn">Tambah Pesanan</button>
     </form>
 
-    <div id="struk" class="struk" style="display:none;">
+    <div class="struk" id="struk" style="display:none;">
       <h3>Struk Pesanan</h3>
       <ul id="listPesanan"></ul>
       <div class="total" id="totalBayar"></div>
-      <button class="btn-small" onclick="simpanPesanan()">Simpan Pesanan</button>
-      <button class="btn-small" onclick="resetPesanan()">Batal</button>
+      <button onclick="simpanPesanan()" class="btn-small">Simpan Pesanan</button>
+      <button onclick="resetPesanan()" class="btn-small" style="margin-left:10px;">Reset</button>
     </div>
   </section>
 
   <!-- HISTORY -->
   <section id="history">
-    <h2>History Pesanan</h2>
-    <div id="riwayat"></div>
-    <div style="text-align:center;">
-      <button class="btn-small" onclick="hapusHistory()">Hapus Semua</button>
-    </div>
+    <h2>Riwayat Pesanan</h2>
+    <div id="riwayatDiv">Memuat riwayat...</div>
+    <button onclick="hapusHistory()" class="btn-small" style="margin-top:1rem;">Hapus Semua Riwayat</button>
   </section>
 </main>
 
 <script>
+  // Daftar Menu lengkap, dengan menu spesial
   const daftarMenu = [
-    // Kopi
-    { id: 1, nama: 'Kopi Tubruk', harga: 7000 },
-    { id: 2, nama: 'Kopi Susu', harga: 12000 },
-    { id: 3, nama: 'Kopi Hitam', harga: 8000 },
-    { id: 4, nama: 'Espresso', harga: 15000 },
-    { id: 5, nama: 'Cappuccino', harga: 18000 },
-    { id: 6, nama: 'Latte', harga: 18000 },
+    { id: 1, nama: "Baso Crot", harga: 25000 },
+    { id: 2, nama: "Mi Muani", harga: 22000 },
+    { id: 3, nama: "Nasi Amba", harga: 25000 },
 
-    // Snack
-    { id: 7, nama: 'Roti Bakar Coklat', harga: 10000 },
-    { id: 8, nama: 'Kentang Goreng', harga: 12000 },
-    { id: 9, nama: 'Pisang Goreng', harga: 8000 },
-    { id: 10, nama: 'Tahu Crispy', harga: 10000 },
+    { id: 4, nama: "Kopi Tubruk", harga: 7000 },
+    { id: 5, nama: "Kopi Susu", harga: 12000 },
+    { id: 6, nama: "Kopi Hitam", harga: 8000 },
+    { id: 7, nama: "Espresso", harga: 15000 },
+    { id: 8, nama: "Cappuccino", harga: 18000 },
+    { id: 9, nama: "Latte", harga: 18000 },
 
-    // Nasi
-    { id: 11, nama: 'Nasi Goreng Spesial', harga: 20000 },
-    { id: 12, nama: 'Nasi Ayam Geprek', harga: 22000 },
-    { id: 13, nama: 'Nasi Telur Kecap', harga: 15000 }
+    { id: 10, nama: "Teh Manis", harga: 5000 },
+    { id: 11, nama: "Teh Tawar", harga: 3000 },
+    { id: 12, nama: "Jus Jeruk", harga: 12000 },
+
+    { id: 13, nama: "Es Teh Manis", harga: 7000 },
+    { id: 14, nama: "Es Kopi Susu", harga: 15000 },
+    { id: 15, nama: "Es Jeruk", harga: 10000 },
+
+    { id: 16, nama: "Roti Bakar Coklat", harga: 10000 },
+    { id: 17, nama: "Kentang Goreng", harga: 12000 },
+    { id: 18, nama: "Pisang Goreng", harga: 8000 },
+    { id: 19, nama: "Tahu Crispy", harga: 10000 },
+    { id: 20, nama: "Cireng", harga: 9000 },
+    { id: 21, nama: "Bakwan", harga: 8000 },
+
+    { id: 22, nama: "Nasi Goreng Spesial", harga: 20000 },
+    { id: 23, nama: "Nasi Ayam Geprek", harga: 22000 },
+    { id: 24, nama: "Nasi Telur Kecap", harga: 15000 },
+
+    { id: 25, nama: "Mie Goreng", harga: 15000 },
+    { id: 26, nama: "Mie Rebus", harga: 15000 },
   ];
 
   let pesanan = [];
 
-  const menuSelect = document.getElementById('menu');
-  const jumlahInput = document.getElementById('jumlah');
-  const formPesan = document.getElementById('formPesan');
-  const listPesanan = document.getElementById('listPesanan');
-  const struk = document.getElementById('struk');
-  const totalBayar = document.getElementById('totalBayar');
-  const riwayatDiv = document.getElementById('riwayat');
-
-  // Ganti halaman
+  // Fungsi untuk tampilkan section yang dipilih
   function show(id) {
     document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    if (id === 'history') loadHistory();
-  }
-
-  // Isi dropdown menu
-  function loadMenu() {
-    menuSelect.innerHTML = ''; // clear dulu
-    daftarMenu.forEach(item => {
-      const opt = document.createElement('option');
-      opt.value = item.id;
-      opt.textContent = `${item.nama} - Rp${item.harga.toLocaleString()}`;
-      menuSelect.appendChild(opt);
-    });
-  }
-
-  // Tambah ke pesanan
-  formPesan.onsubmit = function(e) {
-    e.preventDefault();
-    const id = parseInt(menuSelect.value);
-    const qty = parseInt(jumlahInput.value);
-    if (!id || qty < 1) return;
-
-    const existing = pesanan.find(p => p.id === id);
-    if (existing) {
-      existing.qty += qty;
-    } else {
-      pesanan.push({ id, qty });
+    if(id === 'kasir') {
+      isiMenuSelect();
+      tampilkanStruk();
     }
-    formPesan.reset();
-    jumlahInput.value = 1;
-    tampilkanStruk();
-  };
-
-  // Tampilkan struk
-  function tampilkanStruk() {
-    listPesanan.innerHTML = '';
-    let total = 0;
-    pesanan.forEach(item => {
-      const data = daftarMenu.find(d => d.id === item.id);
-      const li = document.createElement('li');
-      const harga = data.harga * item.qty;
-      li.innerHTML = `${data.nama} x${item.qty} <span>Rp${harga.toLocaleString()}</span>`;
-      listPesanan.appendChild(li);
-      total += harga;
-    });
-    totalBayar.textContent = `Total: Rp${total.toLocaleString()}`;
-    struk.style.display = pesanan.length ? 'block' : 'none';
+    if(id === 'history') {
+      loadHistory();
+    }
   }
 
-  // Simpan ke localStorage
+  // Isi dropdown menu di kasir
+  function isiMenuSelect() {
+    const select = document.getElementById('menuSelect');
+    select.innerHTML = '';
+    daftarMenu.forEach(menu => {
+      const option = document.createElement('option');
+      option.value = menu.id;
+      option.textContent = `${menu.nama} - Rp${menu.harga.toLocaleString()}`;
+      select.appendChild(option);
+    });
+  }
+
+  // Tambah pesanan
+  function tambahPesanan() {
+    const menuId = parseInt(document.getElementById('menuSelect').value);
+    const qty = parseInt(document.getElementById('qtyInput').value);
+    if (qty <= 0) return alert('Jumlah harus lebih dari 0!');
+    const itemIndex = pesanan.findIndex(p => p.id === menuId);
+    if(itemIndex > -1) {
+      pesanan[itemIndex].qty += qty;
+    } else {
+      pesanan.push({ id: menuId, qty });
+    }
+    tampilkanStruk();
+    return false; // supaya form tidak reload
+  }
+
+  // Tampilkan struk pesanan
+  function tampilkanStruk() {
+    const struk = document.getElementById('struk');
+    const listPesanan = document.getElementById('listPesanan');
+    const totalBayar = document.getElementById('totalBayar');
+    listPesanan.innerHTML = '';
+    if (pesanan.length === 0) {
+      struk.style.display = 'none';
+      return;
+    }
+    let total = 0;
+    pesanan.forEach(p => {
+      const menu = daftarMenu.find(m => m.id === p.id);
+      const hargaItem = menu.harga * p.qty;
+      total += hargaItem;
+
+      const li = document.createElement('li');
+      li.innerHTML = `<span>${menu.nama} x${p.qty}</span> <span>Rp${hargaItem.toLocaleString()}</span>`;
+      listPesanan.appendChild(li);
+    });
+    totalBayar.textContent = `Total Bayar: Rp${total.toLocaleString()}`;
+    struk.style.display = 'block';
+  }
+
+  // Simpan pesanan ke history localStorage
   function simpanPesanan() {
-    if (!pesanan.length) return;
-    const data = JSON.parse(localStorage.getItem('riwayat')) || [];
+    if (pesanan.length === 0) return alert('Belum ada pesanan.');
+    let history = JSON.parse(localStorage.getItem('history')) || [];
     const waktu = new Date().toLocaleString();
-    // Simpan salinan pesanan agar data tetap, tidak terubah bila pesanan di-reset
-    const pesananCopy = pesanan.map(p => ({ id: p.id, qty: p.qty }));
-    data.push({ waktu, pesanan: pesananCopy });
-    localStorage.setItem('riwayat', JSON.stringify(data));
-    alert('Pesanan disimpan!');
+    const total = pesanan.reduce((sum, p) => {
+      const menu = daftarMenu.find(m => m.id === p.id);
+      return sum + menu.harga * p.qty;
+    }, 0);
+    history.push({ waktu, pesanan: [...pesanan], total });
+    localStorage.setItem('history', JSON.stringify(history));
+    alert('Pesanan berhasil disimpan!');
     resetPesanan();
-    show('history');
   }
 
   // Reset pesanan
@@ -330,48 +402,39 @@
     tampilkanStruk();
   }
 
-  // Load history dari localStorage dan tampilkan
+  // Load dan tampilkan history pesanan
   function loadHistory() {
+    let history = JSON.parse(localStorage.getItem('history')) || [];
+    const riwayatDiv = document.getElementById('riwayatDiv');
     riwayatDiv.innerHTML = '';
-    const data = JSON.parse(localStorage.getItem('riwayat')) || [];
-    if (!data.length) {
+    if (history.length === 0) {
       riwayatDiv.textContent = 'Belum ada riwayat pesanan.';
       return;
     }
-    data.forEach((order, i) => {
+    history.forEach((h) => {
       const div = document.createElement('div');
       div.classList.add('history-item');
-      div.innerHTML = `<h4>Pesanan ke-${i+1} (${order.waktu})</h4>`;
-      const ul = document.createElement('ul');
-      let total = 0;
-      order.pesanan.forEach(item => {
-        const dataMenu = daftarMenu.find(d => d.id === item.id);
-        if (!dataMenu) return;
-        const harga = dataMenu.harga * item.qty;
-        const li = document.createElement('li');
-        li.innerHTML = `${dataMenu.nama} x${item.qty} <span>Rp${harga.toLocaleString()}</span>`;
-        ul.appendChild(li);
-        total += harga;
+      let list = '<ul>';
+      h.pesanan.forEach(p => {
+        const menu = daftarMenu.find(m => m.id === p.id);
+        list += `<li>${menu.nama} x${p.qty} - Rp${(menu.harga * p.qty).toLocaleString()}</li>`;
       });
-      div.appendChild(ul);
-      const pTotal = document.createElement('p');
-      pTotal.className = 'total';
-      pTotal.textContent = `Total: Rp${total.toLocaleString()}`;
-      div.appendChild(pTotal);
+      list += '</ul>';
+      div.innerHTML = `<strong>Waktu:</strong> ${h.waktu} ${list} <div><strong>Total:</strong> Rp${h.total.toLocaleString()}</div>`;
       riwayatDiv.appendChild(div);
     });
   }
 
-  // Hapus semua riwayat
+  // Hapus semua history
   function hapusHistory() {
-    if (confirm('Yakin ingin menghapus semua riwayat pesanan?')) {
-      localStorage.removeItem('riwayat');
+    if (confirm('Yakin ingin menghapus semua riwayat?')) {
+      localStorage.removeItem('history');
       loadHistory();
     }
   }
 
   // Inisialisasi
-  loadMenu();
+  isiMenuSelect();
   tampilkanStruk();
 </script>
 
