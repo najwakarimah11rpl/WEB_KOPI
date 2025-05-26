@@ -128,9 +128,9 @@
 </head>
 <body>
 
-<header>☕ WARKOP MURAH</header>
+<header>☕ KEDAI TITIKOMA</header>
 <nav>
-  <button onclick="show('home')">Home</button>
+  <button onclick="show('home')">Menu</button>
   <button onclick="show('kasir')">Kasir</button>
   <button onclick="show('history')">History</button>
 </nav>
@@ -145,14 +145,7 @@
 
     <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ccc;">
     <h3 style="text-align:center;">📋 Daftar Menu</h3>
-    <ul style="padding: 0; list-style: none;">
-      <li><span>Kopi Tubruk</span> <span>Rp7.000</span></li>
-      <li><span>Kopi Susu</span> <span>Rp12.000</span></li>
-      <li><span>Kopi Hitam</span> <span>Rp8.000</span></li>
-      <li><span>Espresso</span> <span>Rp15.000</span></li>
-      <li><span>Cappuccino</span> <span>Rp18.000</span></li>
-      <li><span>Latte</span> <span>Rp18.000</span></li>
-    </ul>
+    <ul id="daftarMenuUtama" style="padding: 0; list-style: none;"></ul>
   </section>
 
   <section id="kasir">
@@ -195,7 +188,16 @@
     { id: 4, nama: 'Espresso', harga: 15000 },
     { id: 5, nama: 'Cappuccino', harga: 18000 },
     { id: 6, nama: 'Latte', harga: 18000 },
+    { id: 7, nama: 'Mie Goreng Spesial', harga: 17000 },
+    { id: 8, nama: 'Mie Ayam Bakso', harga: 20000 },
+    { id: 9, nama: 'Indomie Telur Keju', harga: 14000 },
+    { id: 10, nama: 'Roti Bakar Cokelat', harga: 10000 },
+    { id: 11, nama: 'Pisang Goreng', harga: 8000 },
+    { id: 12, nama: 'Kopi Aren', harga: 14000 },
+    { id: 13, nama: 'Vietnam Drip', harga: 16000 },
+    { id: 14, nama: 'Es Kopi Susu', harga: 15000 },
   ];
+
   let pesanan = [];
 
   const menuSelect = document.getElementById('menu');
@@ -205,6 +207,7 @@
   const struk = document.getElementById('struk');
   const totalBayar = document.getElementById('totalBayar');
   const riwayatDiv = document.getElementById('riwayat');
+  const daftarMenuUtama = document.getElementById('daftarMenuUtama');
 
   function show(id) {
     document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
@@ -213,11 +216,21 @@
   }
 
   function loadMenu() {
+    menuSelect.innerHTML = '';
     daftarMenu.forEach(item => {
       const opt = document.createElement('option');
       opt.value = item.id;
       opt.textContent = `${item.nama} - Rp${item.harga.toLocaleString()}`;
       menuSelect.appendChild(opt);
+    });
+  }
+
+  function tampilkanDaftarMenu() {
+    daftarMenuUtama.innerHTML = '';
+    daftarMenu.forEach(item => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span>${item.nama}</span> <span>Rp${item.harga.toLocaleString()}</span>`;
+      daftarMenuUtama.appendChild(li);
     });
   }
 
@@ -257,7 +270,9 @@
     if (!pesanan.length) return;
     const data = JSON.parse(localStorage.getItem('riwayat')) || [];
     const waktu = new Date().toLocaleString();
-    data.push({ waktu, pesanan });
+    // Simpan salinan pesanan supaya tidak terpengaruh setelah reset
+    const pesananCopy = pesanan.map(p => ({ id: p.id, qty: p.qty }));
+    data.push({ waktu, pesanan: pesananCopy });
     localStorage.setItem('riwayat', JSON.stringify(data));
     alert('Pesanan disimpan!');
     resetPesanan();
@@ -300,13 +315,15 @@
   }
 
   function hapusHistory() {
-    if (confirm('Hapus semua riwayat pesanan?')) {
+    if (confirm('Yakin ingin menghapus semua riwayat pesanan?')) {
       localStorage.removeItem('riwayat');
       loadHistory();
     }
   }
 
+  // Init
   loadMenu();
+  tampilkanDaftarMenu();
 </script>
 
 </body>
