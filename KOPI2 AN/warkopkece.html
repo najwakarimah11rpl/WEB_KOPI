@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Warkop Murah</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background-color: #3e2723;
+      color: white;
+    }
+    header {
+      background-color: #5d4037;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #4e342e;
+      padding: 0.5rem;
+    }
+    nav button {
+      background-color: #bcaaa4;
+      color: #3e2723;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin: 0 0.5rem;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    nav button:hover {
+      background-color: #8d6e63;
+      color: white;
+    }
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background-color: #4e342e;
+      border-radius: 10px;
+    }
+    section { display: none; }
+    section.active { display: block; }
+
+    h2 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .menu-item {
+      background: #6d4c41;
+      padding: 1rem;
+      margin: 0.5rem;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 1rem auto;
+    }
+
+    label, select, input {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    button.submit-btn {
+      width: 100%;
+      background-color: #bcaaa4;
+      color: #3e2723;
+      font-size: 1.1rem;
+      padding: 0.7rem;
+    }
+
+    .struk, .history-item {
+      background-color: #3e2723;
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid #bcaaa4;
+    }
+
+    .struk ul, .history-item ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .struk li, .history-item li {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed #bcaaa4;
+      padding: 0.3rem 0;
+    }
+
+    .total {
+      text-align: right;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    .btn-small {
+      background: #8d6e63;
+      border: none;
+      color: white;
+      padding: 0.4rem 1rem;
+      margin-top: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header>☕ WARKOP MURAH</header>
+<nav>
+  <button onclick="show('home')">Home</button>
+  <button onclick="show('kasir')">Kasir</button>
+  <button onclick="show('history')">History</button>
+</nav>
+
+<main>
+  <!-- HOME -->
+  <section id="home" class="active">
+    <h2>Selamat Datang di Warkop Murah</h2>
+    <p style="text-align:center;">Nikmati kopi enak, harga merakyat!</p>
+    <div style="text-align:center;">
+      <button class="submit-btn" onclick="show('kasir')">Pesan Sekarang</button>
+    </div><hr style="margin: 2rem 0; border: none; border-top: 1px solid #ccc;">
+    <h3 style="text-align:center;">📋 Daftar Menu</h3>
+    <ul style="padding: 0; list-style: none;">
+      <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
+        <span>Kopi Tubruk</span> <span>Rp7.000</span>
+      </li>
+      <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
+        <span>Kopi Susu</span> <span>Rp12.000</span>
+      </li>
+      <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
+        <span>Kopi Hitam</span> <span>Rp8.000</span>
+      </li>
+      <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
+        <span>Espresso</span> <span>Rp15.000</span>
+      </li>
+      <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:0.5rem 0;">
+        <span>Cappuccino</span> <span>Rp18.000</span>
+      </li>
+      <li style="display:flex; justify-content:space-between; padding:0.5rem 0;">
+        <span>Latte</span> <span>Rp18.000</span>
+      </li>
+    </ul>
+    
+  </section>
+
+  <!-- KASIR -->
+  <section id="kasir">
+    <h2>Kasir - Pesanan</h2>
+    <form id="formPesan">
+      <label for="menu">Pilih Menu:</label>
+      <select id="menu" required></select>
+
+      <label for="jumlah">Jumlah:</label>
+      <input type="number" id="jumlah" min="1" value="1" required />
+
+      <button type="submit" class="submit-btn">Tambah Pesanan</button>
+    </form>
+
+    <div id="struk" class="struk" style="display:none;">
+      <h3>Struk Pesanan</h3>
+      <ul id="listPesanan"></ul>
+      <div class="total" id="totalBayar"></div>
+      <button class="btn-small" onclick="simpanPesanan()">Simpan Pesanan</button>
+      <button class="btn-small" onclick="resetPesanan()">Batal</button>
+    </div>
+  </section>
+
+  <!-- HISTORY -->
+  <section id="history">
+    <h2>History Pesanan</h2>
+    <div id="riwayat"></div>
+    <div style="text-align:center;">
+      <button class="btn-small" onclick="hapusHistory()">Hapus Semua</button>
+    </div>
+  </section>
+</main>
+
+<script>
+  const daftarMenu = [
+    { id: 1, nama: 'Kopi Tubruk', harga: 7000 },
+    { id: 2, nama: 'Kopi Susu', harga: 12000 },
+    { id: 3, nama: 'Kopi Hitam', harga: 8000 },
+    { id: 4, nama: 'Espresso', harga: 15000 },
+    { id: 5, nama: 'Cappuccino', harga: 18000 },
+    { id: 6, nama: 'Latte', harga: 18000 },
+  ];
+
+  let pesanan = [];
+
+  const menuSelect = document.getElementById('menu');
+  const jumlahInput = document.getElementById('jumlah');
+  const formPesan = document.getElementById('formPesan');
+  const listPesanan = document.getElementById('listPesanan');
+  const struk = document.getElementById('struk');
+  const totalBayar = document.getElementById('totalBayar');
+  const riwayatDiv = document.getElementById('riwayat');
+
+  // Ganti halaman
+  function show(id) {
+    document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    if (id === 'history') loadHistory();
+  }
+
+  // Isi dropdown menu
+  function loadMenu() {
+    daftarMenu.forEach(item => {
+      const opt = document.createElement('option');
+      opt.value = item.id;
+      opt.textContent = `${item.nama} - Rp${item.harga.toLocaleString()}`;
+      menuSelect.appendChild(opt);
+    });
+  }
+
+  // Tambah ke pesanan
+  formPesan.onsubmit = function(e) {
+    e.preventDefault();
+    const id = parseInt(menuSelect.value);
+    const qty = parseInt(jumlahInput.value);
+    if (!id || qty < 1) return;
+
+    const existing = pesanan.find(p => p.id === id);
+    if (existing) {
+      existing.qty += qty;
+    } else {
+      pesanan.push({ id, qty });
+    }
+    formPesan.reset();
+    jumlahInput.value = 1;
+    tampilkanStruk();
+  };
+
+  // Tampilkan struk
+  function tampilkanStruk() {
+    listPesanan.innerHTML = '';
+    let total = 0;
+    pesanan.forEach(item => {
+      const data = daftarMenu.find(d => d.id === item.id);
+      const li = document.createElement('li');
+      const harga = data.harga * item.qty;
+      li.innerHTML = `${data.nama} x${item.qty} <span>Rp${harga.toLocaleString()}</span>`;
+      listPesanan.appendChild(li);
+      total += harga;
+    });
+    totalBayar.textContent = `Total: Rp${total.toLocaleString()}`;
+    struk.style.display = pesanan.length ? 'block' : 'none';
+  }
+
+  // Simpan ke localStorage
+  function simpanPesanan() {
+    if (!pesanan.length) return;
+    const data = JSON.parse(localStorage.getItem('riwayat')) || [];
+    const waktu = new Date().toLocaleString();
+    data.push({ waktu, pesanan });
+    localStorage.setItem('riwayat', JSON.stringify(data));
+    alert('Pesanan disimpan!');
+    resetPesanan();
+    show('history');
+  }
+
+  // Reset pesanan
+  function resetPesanan() {
+    pesanan = [];
+    tampilkanStruk();
+  }
+
+  // Load history
+  function loadHistory() {
+    const data = JSON.parse(localStorage.getItem('riwayat')) || [];
+    riwayatDiv.innerHTML = '';
+    if (!data.length) {
+      riwayatDiv.innerHTML = '<p style="text-align:center;">Belum ada pesanan.</p>';
+      return;
+    }
+    data.forEach((entry, index) => {
+      const div = document.createElement('div');
+      div.className = 'history-item';
+      div.innerHTML = `<strong>Pesanan ${index + 1} - ${entry.waktu}</strong>`;
+      const ul = document.createElement('ul');
+      let total = 0;
+      entry.pesanan.forEach(item => {
+        const dataMenu = daftarMenu.find(d => d.id === item.id);
+        const li = document.createElement('li');
+        const harga = dataMenu.harga * item.qty;
+        li.innerHTML = `${dataMenu.nama} x${item.qty} <span>Rp${harga.toLocaleString()}</span>`;
+        total += harga;
+        ul.appendChild(li);
+      });
+      const totalDiv = document.createElement('div');
+      totalDiv.className = 'total';
+      totalDiv.textContent = `Total: Rp${total.toLocaleString()}`;
+      div.appendChild(ul);
+      div.appendChild(totalDiv);
+      riwayatDiv.appendChild(div);
+    });
+  }
+
+  // Hapus semua history
+  function hapusHistory() {
+    if (confirm('Yakin ingin menghapus semua riwayat pesanan?')) {
+      localStorage.removeItem('riwayat');
+      loadHistory();
+    }
+  }
+
+  // Inisialisasi
+  loadMenu();function tampilkanStruk() {
+  listPesanan.innerHTML = '';
+  let total = 0;
+  pesanan.forEach(item => {
+    const data = daftarMenu.find(d => d.id === item.id);
+    const li = document.createElement('li');
+    const harga = data.harga * item.qty;
+    li.innerHTML = `${data.nama} x${item.qty} <span>Rp${harga.toLocaleString()}</span>`;
+    listPesanan.appendChild(li);
+    total += harga;
+  });
+  totalBayar.textContent = `Total: Rp${total.toLocaleString()}`;
+  struk.style.display = pesanan.length ? 'block' : 'none';
+}
+
+function simpanPesanan() {
+  if (!pesanan.length) return;
+  const data = JSON.parse(localStorage.getItem('riwayat')) || [];
+  const waktu = new Date().toLocaleString();
+  data.push({ waktu, pesanan });
+  localStorage.setItem('riwayat', JSON.stringify(data));
+  alert('Pesanan disimpan!');
+  resetPesanan();
+  show('history');
+}
+
+function resetPesanan() {
+  pesanan = [];
+  tampilkanStruk();
+}
+
+function loadHistory() {
+  const data = JSON.parse(localStorage.getItem('riwayat')) || [];
+  riwayatDiv.innerHTML = '';
+  if (!data.length) {
+    riwayatDiv.innerHTML = '<p class="center">Belum ada pesanan.</p>';
+    return;
+  }
+  data.forEach((entry, index) => {
+    const div = document.createElement('div');
+    div.className = 'history-item';
+    div.innerHTML = `<strong>Pesanan ${index + 1} - ${entry.waktu}</strong>`;
+    const ul = document.createElement('ul');
+    let total = 0;
+    entry.pesanan.forEach(item => {
+      const dataMenu = daftarMenu.find(d => d.id === item.id);
+      const li = document.createElement('li');
+      const harga = dataMenu.harga * item.qty;
+      li.innerHTML = `${dataMenu.nama} x${item.qty} <span>Rp${harga.toLocaleString()}</span>`;
+      total += harga;
+      ul.appendChild(li);
+    });
+    const totalDiv = document.createElement('div');
+    totalDiv.className = 'total';
+    totalDiv.textContent = `Total: Rp${total.toLocaleString()}`;
+    div.appendChild(ul);
+    div.appendChild(totalDiv);
+    riwayatDiv.appendChild(div);
+  });
+}
+
+function hapusHistory() {
+  if (confirm('Hapus semua riwayat pesanan?')) {
+    localStorage.removeItem('riwayat');
+    loadHistory();
+  }
+}
+
+loadMenu(); // jalankan saat page dimuat
+</script>
+
+</script>
+
+</body>
+</html>
